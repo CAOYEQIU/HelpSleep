@@ -52,7 +52,7 @@ let offsetRelaxY = 0;
 let initialOffsetRelaxY = 0;
 let contentHeightRelax = 0;
 
-let relaxLabels = ["rain", "bonfire", "capsule", "drip", "wave", "blister"];
+let relaxLabels = ["wave","drip", "capsule", "rain",   "blister","bonfire"];
 let bgm;
 function preload() {
   iconMeditation = loadImage("2.png");
