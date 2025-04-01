@@ -14,7 +14,7 @@ let startImage = null;
 
 let iconMeditation, iconVideos, iconRelax, iconSleep;
 let iconSearch, iconMark, iconglass, iconBack;
-
+let spacing;
 let vid1, vid2, vid3, vid4, vid5;
 let videoListMeditation = [];
 let currentPlaying = null;
@@ -82,6 +82,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   screenW=width;
   screenH=height;
+  spacing = width / 4;
   button = createButton("back");
   button.position(20, 20);
 
@@ -305,10 +306,12 @@ function drawTopBarWithBack(titleText = "TITLE") {
     currentPage = "videos";
     stopAllVideos();
   }
+  push()
   fill(255);
   textSize(18);
   textAlign(CENTER, CENTER);
   text(titleText, width / 2, topBarHeight / 2);
+  pop()
 }
 let curVid = null
 function drawMeditationPage() {
@@ -406,7 +409,9 @@ function drawVideoPage1() {
   let contentH = 3 * (vH + gap) + 20;
   let minOffset = visibleAreaHeight - contentH;
   offsetPage1Y = constrain(offsetPage1Y, minOffset, 0);
+  push()
   drawTopBarWithBack("Kinectic sand");
+  pop()
 }
 
 function drawVideoPage2() {
@@ -471,7 +476,7 @@ function drawBottomNav() {
   fill(60);
   noStroke();
   rect(0, height - navBarHeight, width, navBarHeight);
-  let spacing = width / 4;
+  
   imageMode(CENTER);
   image(
     iconMeditation,
@@ -678,11 +683,31 @@ function mousePressed() {
     }
   }
 }
+let preTouchY = 0;
+function touchStarted() {
+  // 只记录第一个触摸点
+  if (touches.length > 0) {
+    dragStartY = touches[0].y;
+    if (currentPage === "meditation") {
+      initialOffsetY = offsetY;
+    } else if (currentPage === "videoPage1") {
+      initialOffsetY = offsetPage1Y;
+    } else if (currentPage === "videoPage2") {
+      initialOffsetY = offsetPage2Y;
+    } else if (currentPage === "videoPage3") {
+      initialOffsetY = offsetPage3Y;
+    }
+    // 记录当前初始偏移量
+    // initialOffsetY = this[pageConfig[currentPage].offset] || 0;
+  }
+  return false; // 阻止默认滚动
+}
 function touchMoved() {
   let dy=0;
    for (let touch of touches) {
       dy = touch.y - dragStartY;
-     console.log(dy)
+     console.log(dy,touch.y,dragStartY)
+    //  preTouchY = touch.y
    }
     if (currentPage === "meditation") {
       offsetY = initialOffsetY + dy;
@@ -693,6 +718,8 @@ function touchMoved() {
     } else if (currentPage === "videoPage3") {
       offsetPage3Y = initialOffsetY + dy;
     }
+    // dragStartY=preTouchY
+
 }
 function mouseDragged() {
   if (dragging) {
