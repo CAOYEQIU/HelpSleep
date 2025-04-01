@@ -576,7 +576,7 @@ function drawBottomNav() {
 async function playVideo(videoToPlay) {
   try {
     stopAllVideos();
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise(resolve => setTimeout(resolve, 200));
     currentPlaying = videoToPlay;
     videoToPlay.play();
   } catch (err) {
@@ -605,7 +605,7 @@ async function stopAllVideos() {
   currentPlaying = null;
 }
 
-let clickHandledRelax = false;
+// let clickHandledRelax = false;
 
 function drawRelaxPage() {
   let startY = topBarHeight + 40;
@@ -628,12 +628,13 @@ function drawRelaxPage() {
     textSize(14);
     text(relaxLabels[i], cx, cy);
     if (
-      !clickHandledRelax &&
+      // !clickHandledRelax &&
       mouseIsPressed &&
       dist(mouseX, mouseY, cx, cy) < diameter / 2
     ) {
+      console.log("pressed")
       playVideo(videoListRelax[i]);
-      clickHandledRelax = true;
+      // clickHandledRelax = true;
     }
   }
   pop();
@@ -744,7 +745,7 @@ function mouseDragged() {
 function mouseReleased() {
   dragging = false;
   if (currentPage === "relax") {
-    clickHandledRelax = false;
+    // clickHandledRelax = false;
   }
 }
 
