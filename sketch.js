@@ -88,6 +88,8 @@ function setup() {
 
   // Call repaint() when the button is pressed.
   button.mousePressed(back);
+  button.touchStarted(back);
+
   button.hide();
   maskGraphics = createGraphics(400, 300);
   maskGraphics.background(0);
@@ -696,6 +698,9 @@ function touchStarted() {
       initialOffsetY = offsetPage2Y;
     } else if (currentPage === "videoPage3") {
       initialOffsetY = offsetPage3Y;
+    }
+    if (currentPage == "sleep") {
+      mousePressedSleepPage();
     }
     // 记录当前初始偏移量
     // initialOffsetY = this[pageConfig[currentPage].offset] || 0;
