@@ -44,6 +44,7 @@ let offsetPage2Y = 0;
 let p3v1, p3v2, p3v3;
 let videoListP3 = [];
 let offsetPage3Y = 0;
+let offsetPage4Y = 0;
 
 let rVid1, rVid2, rVid3, rVid4, rVid5, rVid6;
 let videoListRelax = [];
@@ -619,7 +620,7 @@ function drawRelaxPage() {
     let row = floor(i / 2);
     let col = i % 2;
     let cx = col === 0 ? xLeft : xRight;
-    let cy = yStart + row * (diameter + gap);
+    let cy = yStart + row * (diameter + gap)+offsetPage4Y;
     let frame = videoListRelax[i].get();
     imageMode(CENTER);
     image(frame, cx, cy, diameter, diameter);
@@ -640,6 +641,11 @@ function drawRelaxPage() {
   pop();
   let visibleAreaHeight = height - topBarHeight - navBarHeight;
   let minOffset = visibleAreaHeight - contentHeightRelax;
+
+  // let visibleAreaHeight = height - topBarHeight - navBarHeight;
+  // let contentH = 3 * (vH + gap) + 20;
+  // let minOffset = visibleAreaHeight - contentH;
+  offsetPage4Y = constrain(offsetPage4Y, -100, 0);
   drawTopBar("RLAX");
 }
 
@@ -672,6 +678,8 @@ function mousePressed() {
       initialOffsetY = offsetPage2Y;
     } else if (currentPage === "videoPage3") {
       initialOffsetY = offsetPage3Y;
+    }else if (currentPage === "relax") {
+      initialOffsetY = offsetPage4Y;
     }
     if (
       currentPage === "relax" &&
@@ -699,6 +707,8 @@ function touchStarted() {
       initialOffsetY = offsetPage2Y;
     } else if (currentPage === "videoPage3") {
       initialOffsetY = offsetPage3Y;
+    }else if (currentPage === "relax") {
+      initialOffsetY = offsetPage4Y;
     }
     if (currentPage == "sleep") {
       mousePressedSleepPage();
@@ -712,7 +722,6 @@ function touchMoved() {
   let dy=0;
    for (let touch of touches) {
       dy = touch.y - dragStartY;
-     console.log(dy,touch.y,dragStartY)
     //  preTouchY = touch.y
    }
     if (currentPage === "meditation") {
@@ -723,7 +732,12 @@ function touchMoved() {
       offsetPage2Y = initialOffsetY + dy;
     } else if (currentPage === "videoPage3") {
       offsetPage3Y = initialOffsetY + dy;
+    }else if (currentPage === "relax") {
+      offsetPage4Y = initialOffsetY + dy;
     }
+    console.log(dy,offsetPage4Y)
+
+
     // dragStartY=preTouchY
 
 }
@@ -738,6 +752,8 @@ function mouseDragged() {
       offsetPage2Y = initialOffsetY + dy;
     } else if (currentPage === "videoPage3") {
       offsetPage3Y = initialOffsetY + dy;
+    }else if (currentPage === "relax") {
+      offsetPage4Y = initialOffsetY + dy;
     }
   }
 }
