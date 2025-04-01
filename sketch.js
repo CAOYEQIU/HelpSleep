@@ -79,7 +79,9 @@ function back() {
   bgm.pause();
 }
 function setup() {
-  createCanvas(screenW, screenH);
+  createCanvas(windowWidth, windowHeight);
+  screenW=width;
+  screenH=height;
   button = createButton("back");
   button.position(20, 20);
 
