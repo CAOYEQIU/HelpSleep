@@ -646,7 +646,7 @@ function drawRelaxPage() {
   // let contentH = 3 * (vH + gap) + 20;
   // let minOffset = visibleAreaHeight - contentH;
   offsetPage4Y = constrain(offsetPage4Y, -100, 0);
-  drawTopBar("RLAX");
+  drawTopBar("RELAX");
 }
 
 function mousePressedSleepPage() {
